@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +10,37 @@
 </head>
 <body>
     <h1>Concert List</h1>
-    <a href="/add-concert/">Add Concert</a>
-    <!-- TODO: show delete link for each concert -->
+    
+    <!-- Link to add a new concert -->
+    <a href="/add-concert">Add Concert</a>
 
-    <!-- TODO: Add list of concerts -->
+    <!-- Link to delete all concerts -->
+    <a href="/delete-all-concerts">Delete All Concerts</a>
+
+    <!-- Table to display the list of concerts -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Performer</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate over the list of concerts -->
+            <tr th:each="concert : ${concerts}">
+                <td th:text="${concert.title}"></td>
+                <td th:text="${concert.performer}"></td>
+                <td th:text="${#dates.format(concert.date, 'yyyy-MM-dd')}"></td>
+                <td th:text="${concert.description}"></td>
+                <td>
+                    <!-- Link to delete a concert -->
+                    <a th:href="@{/delete-concert/{id}(id=${concert.id})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
